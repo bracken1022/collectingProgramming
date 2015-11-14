@@ -5,3 +5,7 @@
 ### 1. EucliDean Distanse
 
 this algorithm is explained in the sim_distance function
+
+### 2. Person
+
+this algorithm is explained in the sim_person function
