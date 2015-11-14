@@ -93,9 +93,20 @@ def sim_pearson(prefs, person1, person2):
     result = (sum_p1_mul_p2 - sumP1_mul_sumP2_div_n)/sqrt(sumPowP1_minus_powSumP1DivN * sumPowP2_minus_powSumP1DivN)
 
     return result
+
+
+def topMatches(prefs, person, n = 5, similarity = sim_pearson):
+    scores = [(similarity(prefs, person, other), other) for other in prefs if person != other]
+
+    scores.sort()
+    scores.reverse()
+    return scores[0:n]
     
 
 if __name__ == '__main__':
     print sim_distance(critics, 'Toby', 'Claudia Puig')
     print sim_pearson(critics, 'Toby', 'Claudia Puig')
     print sim_pearson(critics, 'Lisa Rose', 'Gene Seymour')
+
+    print topMatches(critics, 'Toby', 3)
+
