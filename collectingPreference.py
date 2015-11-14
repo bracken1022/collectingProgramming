@@ -90,9 +90,9 @@ def sim_pearson(prefs, person1, person2):
     sumPowP1_minus_powSumP1DivN = sum([pow(person1_movie[it], 2) for it in si]) - pow(sum([person1_movie[it] for it in si]), 2)/n
     sumPowP2_minus_powSumP1DivN = sum([pow(person2_movie[it], 2) for it in si]) - pow(sum([person2_movie[it] for it in si]), 2)/n
     
-    r = (sum_p1_mul_p2 - sumP1_mul_sumP2_div_n)/sqrt(sumPowP1_minus_powSumP1DivN * sumPowP2_minus_powSumP1DivN)
+    result = (sum_p1_mul_p2 - sumP1_mul_sumP2_div_n)/sqrt(sumPowP1_minus_powSumP1DivN * sumPowP2_minus_powSumP1DivN)
 
-    return r
+    return result
     
 
 if __name__ == '__main__':
