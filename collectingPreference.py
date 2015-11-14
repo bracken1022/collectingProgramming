@@ -71,5 +71,31 @@ def sim_distance(prefs, person1, person2):
 
     return 1 / (1 + sqrt(sum_of_squares))
 
+
+def sim_pearson(prefs, person1, person2):
+    person1_movie = prefs[person1]
+    person2_movie = prefs[person2]
+
+    si = {}
+    for item in person1_movie:
+        if item in person2_movie:
+            si[item] = 1
+
+    n = len(si)
+    if 0 == n: return 0
+
+    sum_p1_mul_p2 = sum([person1_movie[item] * person2_movie[item] for item in si])
+    sumP1_mul_sumP2_div_n = sum([person1_movie[it] for it in si]) * sum([person2_movie[it] for it in si]) / n
+
+    sumPowP1_minus_powSumP1DivN = sum([pow(person1_movie[it], 2) for it in si]) - pow(sum([person1_movie[it] for it in si]), 2)/n
+    sumPowP2_minus_powSumP1DivN = sum([pow(person2_movie[it], 2) for it in si]) - pow(sum([person2_movie[it] for it in si]), 2)/n
+    
+    result = (sum_p1_mul_p2 - sumP1_mul_sumP2_div_n)/sqrt(sumPowP1_minus_powSumP1DivN * sumPowP2_minus_powSumP1DivN)
+
+    return result
+    
+
 if __name__ == '__main__':
     print sim_distance(critics, 'Toby', 'Claudia Puig')
+    print sim_pearson(critics, 'Toby', 'Claudia Puig')
+    print sim_pearson(critics, 'Lisa Rose', 'Gene Seymour')
