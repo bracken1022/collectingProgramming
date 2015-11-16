@@ -26,4 +26,6 @@ caculate the highest socre by other pepole marked.
     0.893405147442
     0.398409536445
     [(0.9912407071619299, 'Lisa Rose'), (0.9244734516419049, 'Mick LaSalle'), (0.8934051474415647, 'Claudia Puig')]
-    -+I:programCollectiveintelligence bracken$ 
+    [(3.0, 'The Night Listerner'), (3.0, 'Lady in the Water')]
+    I:programCollectiveintelligence bracken$ 
+
