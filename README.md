@@ -14,7 +14,10 @@ this algorithm is explained in the sim_person function
 
 you can find the most similar person by topMatch function
 
+### 4. find the recommandations for someone
 
+then you can give the recommandations for someone. getRecommandations gives u the way how to
+caculate the highest socre by other pepole marked.
 
 ##Result
 
@@ -23,4 +26,4 @@ you can find the most similar person by topMatch function
     0.893405147442
     0.398409536445
     [(0.9912407071619299, 'Lisa Rose'), (0.9244734516419049, 'Mick LaSalle'), (0.8934051474415647, 'Claudia Puig')]
-    I:programCollectiveintelligence bracken$ 
+    -+I:programCollectiveintelligence bracken$ 
