@@ -19,13 +19,27 @@ you can find the most similar person by topMatch function
 then you can give the recommandations for someone. getRecommandations gives u the way how to
 caculate the highest socre by other pepole marked.
 
+### 5. find the most similar movies
+
+Before we have found the most similar movies by pearson algorithm. Now we only change the dictionary
+to a collection of movies. transformPrefs()
+
 ##Result
 
-    I:programCollectiveintelligence bracken$ python collectingPreference.py
-    0.356789172325
-    0.893405147442
-    0.398409536445
-    [(0.9912407071619299, 'Lisa Rose'), (0.9244734516419049, 'Mick LaSalle'), (0.8934051474415647, 'Claudia Puig')]
-    [(3.0, 'The Night Listerner'), (3.0, 'Lady in the Water')]
-    I:programCollectiveintelligence bracken$ 
 
+    --------------------------------------
+    0.356789172325
+    --------------------------------------
+    0.66382999766
+    --------------------------------------
+    0.28369790411
+    --------------------------------------
+    [(0.7313089605150479, 'Mick LaSalle'), (0.6800985414106765, 'Lisa Rose'), (0.663829997660041, 'Claudia Puig')]
+    --------------------------------------
+    [(3.0, 'The Night Listener'), (3.0, 'Lady in the Water')]
+    --------------------------------------
+    [(0.5208690303986359, 'You, Me and Dupree'), (0.2727272727272727, 'Lady in the water'), (0.10410646628417279, 'Lady in the Water'), (0.07725424859373682, 'Snakes on a Plane'), (-0.13227030733885184, 'The Night Listener')]
+    --------------------------------------
+    [(4.0, 'Michael Phillips'), (3.0, 'Jack Matthews')]
+    --------------------------------------
+    I:programCollectiveintelligence bracken$ 

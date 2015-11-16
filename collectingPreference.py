@@ -7,14 +7,14 @@ critics = {
 			'Just My Luck': 3.0, 
 			'Superman Returns': 3.5, 
 			'You, Me and Dupree': 2.5, 
-			'The Night Listerner': 3.0
+			'The Night Listener': 3.0
 	      	     },
 	'Gene Seymour': {
 	      		'Lady in the water': 3.0, 
 			'Snakes on a Plane': 3.5,
 			'Just My Luck': 1.5,
 			'Superman Returns': 5.0,
-			'The Night Lister': 3.0, 
+			'The Night Listener': 3.0, 
 			'You, Me and Dupree': 3.5
 	      		},
 	'Michael Phillips': 
@@ -22,7 +22,7 @@ critics = {
 			    'Lady in the Water': 2.5, 
 			    'Snakes on a Plane': 3.0, 
 			    'Superman Returns': 3.5,
-			    'The Night Listerner': 4.0
+			    'The Night Listener': 4.0
 		 	    },
 	'Claudia Puig': 
 		 	{
@@ -38,14 +38,14 @@ critics = {
 			'Snakes on a Plane': 4.0,
 			'Just My Luck': 2.0,
 			'Superman Returns': 3.0, 
-			'The Night Listerner': 3.0,
+			'The Night Listener': 3.0,
 			'You, Me and Dupree': 2.0
 			},
 	'Jack Matthews': 
 	      		 {
 			 'Lady in the Water': 3.0, 
 			 'Snakes on a Plane': 4.0,
-			 'The Night Listerner': 3.0,
+			 'The Night Listener': 3.0,
 			 'Superman Returns': 5.0,
 			 'You, Me and Dupree': 3.5
 			 },
@@ -89,8 +89,8 @@ def sim_pearson(prefs, person1, person2):
 
     sumPowP1_minus_powSumP1DivN = sum([pow(person1_movie[it], 2) for it in si]) - pow(sum([person1_movie[it] for it in si]), 2)/n
     sumPowP2_minus_powSumP1DivN = sum([pow(person2_movie[it], 2) for it in si]) - pow(sum([person2_movie[it] for it in si]), 2)/n
-    
-    result = (sum_p1_mul_p2 - sumP1_mul_sumP2_div_n)/sqrt(sumPowP1_minus_powSumP1DivN * sumPowP2_minus_powSumP1DivN)
+
+    result = (sum_p1_mul_p2 - sumP1_mul_sumP2_div_n)/(1 + sqrt(sumPowP1_minus_powSumP1DivN * sumPowP2_minus_powSumP1DivN))
 
     return result
 
@@ -126,12 +126,39 @@ def getRecommendations(prefs, person, similarity = sim_pearson):
         rankings.reverse()
         return rankings
 
+def transformPrefs(prefs):
+    result = {}
+    for person in prefs:
+        for item in prefs[person]:
+            result.setdefault(item, {})
+
+            result[item][person] = prefs[person][item]
+
+    return result
+
+movies = transformPrefs(critics)
+
+def printDivision():
+    print '--------------------------------------'
+
 if __name__ == '__main__':
+    printDivision()
     print sim_distance(critics, 'Toby', 'Claudia Puig')
+    printDivision()
     print sim_pearson(critics, 'Toby', 'Claudia Puig')
+    printDivision()
     print sim_pearson(critics, 'Lisa Rose', 'Gene Seymour')
+    printDivision()
 
     print topMatches(critics, 'Toby', 3)
+    printDivision()
 
     print getRecommendations(critics, 'Toby')
+    printDivision()
+
+    print topMatches(movies, 'Superman Returns')
+    printDivision()
+    print getRecommendations(movies, 'Just My Luck')
+    printDivision()
+
 
