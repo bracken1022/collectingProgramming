@@ -141,6 +141,23 @@ movies = transformPrefs(critics)
 def printDivision():
     print '--------------------------------------'
 
+def caculateSimilarItems(prefs, n = 10):
+    result = {}
+    
+    itemPrefs = transformPrefs(prefs)
+    c = 0
+    for item in itemPrefs:
+        c += 1
+        if c % 100 == 0: print "%d / %d" % (c, len(itemPrefs))
+        
+        scores = topMatches(itemPrefs, item, n = n, similarity = sim_distance)
+        result[item] = scores
+    
+    return result
+
+
+
+
 if __name__ == '__main__':
     printDivision()
     print sim_distance(critics, 'Toby', 'Claudia Puig')
@@ -161,4 +178,4 @@ if __name__ == '__main__':
     print getRecommendations(movies, 'Just My Luck')
     printDivision()
 
-
+    print caculateSimilarItems(critics)
