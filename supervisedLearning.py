@@ -1,65 +1,56 @@
 
+
 import feedparser
+import socket
 import re
 
+#set default timer for feedparser.
+socket.setdefaulttimeout(5.0)
 
-def getwords(html):
+
+def getWords(html):
     txt = re.compile(r'<[^>]+>').sub('', html)
+    
     words = re.compile(r'[^A-Z^a-z]+').split(txt)
+
     return [word.lower() for word in words if word != '']
 
+def parseUrl(url):
+    try:
+        parseResult = feedparser.parse(url)
+    except:
+        print "error to open %s" % url
+        return "None", {}
 
-def getwordcounts(url):
-    
-    urlContent = feedparser.parse(url)
     wordCount = {}
 
-    if 'title' not in urlContent.feed:
-        return "NULL"
+    for entry in parseResult.entries:
 
-    for entry in urlContent.entries:
         if 'summary' in entry:
             summary = entry.summary
         else:
             summary = entry.description
 
-        words = getwords(entry.title + ' ' + summary)
+        words = getWords(entry.title + ' ' + summary)
         for word in words:
             wordCount.setdefault(word, 0)
             wordCount[word] += 1
         
-    return urlContent.feed.title, wordCount
+    try:
+        title = parseResult.feed.title
+    except:
+        title = "no title"
+
+    return title, wordCount
+
+def parseRssFile(fileName):
+    urlList = [url for url in file(fileName)]
+    for url in urlList:
+        print "parse url: %s" % url
+        (title, wordDic) = parseUrl(url)
+        print title
 
 
-apcount = {}
-wordcounts = {}
-feedlist = [line for line in file('feedlist.txt')]
 
-for feedurl in feedlist:
-    title, wc = getwordcounts(feedurl)
-    wordcounts[title] = wc
-    for word, count in wc.items():
-        apcount.setdefault(word, 0)
-        if count > 1:
-            apcount[word] += 1
-
-
-wordlist = []
-for w, bc in apcount.items():
-    frac = float(bc) / len(feedlist)
-    if frac > 0.1 and frac < 0.5: wordlist.append(w)
-
-out = file('blogdata.txt', 'w')
-out.write('Blog')
-for word in wordlist: out.write("\t%s" % word)
-out.write('\n')
-for blog, wc in wordcounts.items():
-    out.write(blog)
-    for word in wordlist:
-        if word in wc : out.write("\t%s" % wc[word])
-    else:
-        out.write("\t0")
-out.write('\n')
-    
-
-    
+if __name__ == "__main__":
+    parseRssFile("feedlist.txt")
